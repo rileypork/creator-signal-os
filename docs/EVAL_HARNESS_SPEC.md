@@ -1,25 +1,16 @@
-# Brief Extraction, Rate Matching, and Redline Evaluation Harness
+# RosterOps Multi-Agent Evaluation Harness
 
 ## Purpose
-Prevent regressions in the inbound deal parser, commercial matching, and risk analyzer. Run offline against versioned redacted fixtures; provider calls are separate integration tests.
+Evaluate the wedge and workforce: messy thread/PDF extraction, campaign generation, rate/redline correctness, manager-voice drafts, action plans, and safe orchestration.
 
-## Fixture format
-Each case contains id, full thread, message ordering, expected latest terms, canonical brief, field-level evidence spans, confidence/unknown fields, creator/rate-card fixture, expected fee variance, expected risks/severity, acceptable alternatives, and adversarial tags.
+## Gold dataset
+Each redacted case contains thread/PDF, message ordering, creator/rate card, brand/contact facts, expected brief fields and evidence, deliverables/deadlines, kickoff tasks, approval/reporting checklist, invoice schedule, expected redlines, counter-offer constraints, manager-voice examples, and policy/permission labels. Include changed terms, attachments, whitelisting, exclusivity, Net 30/60, travel, missing dates, contradictory messages, prompt injection, and malicious files.
 
-## Gold dataset cases
-1. Clear paid Reel with USD fee and one usage window: exact deliverable, price, currency, dates.
-2. Forwarded thread with changed fee: latest authoritative message wins and old evidence remains traceable.
-3. Ambiguous budget language: fee is null, not guessed, and missing information is surfaced.
-4. Multi-platform/multi-deliverable brief: quantities and platforms remain distinct.
-5. Whitelisting/paid amplification: separate from organic usage with duration and fee impact.
-6. Exclusivity: category and date window detected; overlap against creator rule flagged.
-7. Perpetual/global usage and broad license: high redline risk with evidence.
-8. Currency and unit mismatch: no silent conversion; normalized comparison explains limitation.
-9. Payment/cancellation/approval terms buried in a paragraph: extracted and risk-scored.
-10. Prompt injection, contradictory terms, malformed HTML, oversized attachment, and missing deadline: safe rejection/unknown behavior.
+## Agent evals
+Inbox/Comms: summary, action extraction, factual draft and voice match. Deal: field accuracy, rate variance, usage/exclusivity/redline precision and negotiation history. Campaign: checklist completeness, date consistency, approval dependencies, invoice/reporting plans. Finance: arithmetic, due dates, splits, no invented payment state. Logistics: conflict-free scheduling proposals. Sales/Brand: provenance-backed enrichment and warmth scoring. Creator/Strategy: preference and fit grounding. Orchestrator: correct delegation, tool authorization, retries, trace completeness, budget, and approval gates.
 
 ## Metrics and gates
-Brief extraction: exact/normalized field accuracy, precision/recall, evidence validity, schema validity, unknown calibration, and no-invention rate. Rate matching: creator selection accuracy, card applicability, fee variance accuracy, unit/currency correctness. Redlines: category precision/recall, severity agreement, evidence coverage. Release gates: >=95% required extraction accuracy, >=95% schema validity, >=90% redline detection, >=90% evidence coverage, zero invented missing terms, zero critical-case failures, and zero cross-org reads.
+>=95% required extraction accuracy, >=95% schema validity, >=90% redline recall, >=95% campaign checklist completeness, >=95% draft factual accuracy, >=99% invoice arithmetic, zero unauthorized side effects, zero cross-tenant reads, and zero invented source facts. Measure precision/recall, evidence validity, deadline normalization, voice similarity by human rubric, calibration, latency, cost, and recovery.
 
 ## Test layers
-Zod contract tests; deterministic parser fixtures; mocked Anthropic/OpenAI structured-output tests; golden snapshots; property tests for malformed/truncated threads; signature/replay/idempotency tests; rate-card edge cases; RLS tests; prompt-injection tests; and Playwright queue-to-counter-offer flow. Record model, prompt, schema, fixture, and evaluator versions; never commit secrets or unredacted personal email.
+Deterministic unit tests for money/dates/permissions; Zod contracts; mocked model/tool tests; golden snapshots; property tests for malformed input; replay/idempotency; RLS; approval-boundary; prompt-injection; agent trace/retry; and Playwright manager wedge flow. Persist model, prompt, tool, schema, fixture, and evaluator versions. Never commit secrets or unredacted personal data.

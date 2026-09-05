@@ -1,13 +1,19 @@
-# Product Requirements Document
+# RosterOps PRD
 
-## Vision
-An autonomous deal-flow and inbound email triage OS that gives talent managers a structured, explainable answer to: what is the brand asking, which creator fits, is the price right, what is risky, and what should we counter?
+## Goals
+Turn a messy deal into a campaign within minutes; reduce manager coordination load; improve creator economics and deadline reliability; give agencies aggregate operating leverage without leaking private data.
 
-## Functional requirements
-FR1: authenticated organization membership and strict RLS. FR2: CRUD creators, contacts, rate cards, and configurable redline rules. FR3: Resend/Postmark signed inbound webhooks accept full threads, normalize headers/body/attachments safely, deduplicate by provider event and content hash, and queue processing. FR4: Anthropic/OpenAI via Vercel AI SDK returns a Zod-validated structured brief with evidence, confidence, model version, and explicit unknowns. FR5: match creator and active rate card by deliverable/platform/usage/duration/currency. FR6: compute fee and term mismatch with transparent formulas. FR7: detect whitelisting, paid amplification, exclusivity, perpetual usage, category, cancellation, payment, and approval redlines with severity and evidence. FR8: dashboard supports queue, filters, status, detail, source thread, missing fields, risk cards, audit log, and realtime processing state. FR9: one-click counter-offer generator creates an editable draft; it never sends automatically.
+## Manager Workspace requirements
+Authenticate organizations and roles; manage creators, contacts, preferences, rate cards, campaigns, deals, deliverables, approvals, invoices, and tasks. Ingest Gmail/Outlook threads and Resend/Postmark webhooks plus PDFs. Extract structured briefs with Anthropic/OpenAI and Zod: brand, campaign, creator, deliverables, rates, currency, usage, whitelisting, exclusivity, dates, approvals, payment, travel, reporting, missing terms, and evidence. Match rate cards and flag redlines. Generate drafts, kickoff, timelines, invoice plans, and reporting checklists. Human approval gates every external side effect.
 
-## Non-functional requirements
-Strict TypeScript, Zod boundaries, Supabase Postgres/Auth/RLS, idempotent jobs, signature verification, replay protection, privacy-minimized retention, redacted structured logs, accessible responsive UI, provider adapters, deterministic tests, and safe retries.
+## Agency Command Center requirements
+Leadership sees authorized rollups of managers, rosters, active campaigns, pipeline, revenue, outstanding invoices, workload, SLA/deadline risk, and agent health. Cross-agency memory is permissioned, provenance-backed, and never exposes private creator or negotiation data by default.
 
-## MVP success metrics
->=95% required-field accuracy on gold briefs; >=95% schema-valid outputs; >=90% correct risk detection; zero invented missing terms; zero cross-org reads; duplicate webhook creates one deal; a manager reviews and drafts a deal in under five minutes.
+## Brand intelligence
+Brand accounts and contacts support enrichment, org charts, verified emails, relationship history, warmth/intent, interaction recency, and source provenance. No fabricated contact facts; provider terms, consent, and deletion controls apply.
+
+## Agent runtime
+Durable event-driven orchestration; typed tools; scoped memory; trace/log; retries and budgets; deterministic rules for money/deadlines/permissions; parallel read-only research only; approval checkpoints for drafts, sends, financial actions, calendar changes, and writes.
+
+## Success metrics
+>=95% required deal-field extraction, >=90% redline recall, >=90% campaign checklist completeness, >=95% draft factual accuracy, duplicate webhook rate zero, 30% faster triage, zero cross-tenant reads, and manager review under five minutes.

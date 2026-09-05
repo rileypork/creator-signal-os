@@ -1,15 +1,15 @@
-# Creator Signal OS / Inbound Deal Triage
+# RosterOps / Creator Signal OS
 
-Creator Signal OS is an autonomous deal-flow and inbound email triage OS for talent managers and creator coordinators. It turns messy brand threads into structured briefs, matches terms against creator rate cards, surfaces whitelisting/exclusivity and redline risk, and produces a manager-controlled counter-offer.
+RosterOps is an AI talent-management operating system: a digital talent agency workforce for creator managers and agencies. Managers are human middleware between creators, brands, agencies, inboxes, contracts, deliverables, calendars, invoices, travel, and reporting. RosterOps turns one messy deal into an executable campaign workspace and coordinates specialized AI agents.
 
-## Core loop
-Resend/Postmark inbound webhook -> normalize thread -> extract brief with evidence and confidence -> match creator/rate card -> detect risk and mismatches -> triage dashboard -> one-click editable counter-offer. AI recommends; a human approves any outbound action.
+## Wedge: Send one messy deal
+Drop in a messy deal thread or PDF. RosterOps extracts the brief, creates the campaign, proposes creator kickoff tasks, drafts brand communication in the manager's voice, schedules invoice timelines and deadlines, tracks approvals, and creates the reporting checklist. Every action is explainable, auditable, and manager-approved.
 
-## Stack and architecture
-Next.js 15 App Router, strict TypeScript, Tailwind CSS, and a minimal Neo-Swiss interface with crisp typography and 1px borders. Supabase PostgreSQL/Auth/Storage/RLS. Anthropic or OpenAI through the Vercel AI SDK for structured extraction and drafting. Zod validates every external boundary. Resend/Postmark adapters are signature-verified, idempotent, and retryable. Vitest and Playwright provide coverage.
+## AI workforce
+Inbox/Comms, Deal, Campaign, Sales/Outreach, Creator, Finance, Career/Strategy, and Logistics agents share scoped tools, memory, and an event/audit trail. The Manager Workspace serves a manager running 5–20 creators; the Agency Command Center gives leadership roster, manager, pipeline, revenue, workload, and cross-agency memory views.
 
-## Product documents
-Read .devin/instructions.md first. See docs/APP_CONCEPT.md, docs/PRD.md, docs/MVP_ROADMAP.md, docs/PR_BUILD_PLAN.md, docs/DATABASE_SCHEMA.sql, and docs/EVAL_HARNESS_SPEC.md.
+## Architecture
+Next.js 15 App Router, strict TypeScript, Tailwind Neo-Swiss 1px-border UI, Supabase PostgreSQL/Auth/Storage/RLS/pgvector, Anthropic/OpenAI via Vercel AI SDK, Gmail/Outlook and Resend/Postmark adapters, calendar/email/CRM/finance provider boundaries, Vitest and Playwright. Zod validates every boundary; AI never sends or commits consequential actions without approval.
 
-## Non-negotiables
-No autonomous sending, no invented terms, no unvalidated JSON, no secrets in logs, no cross-organization reads, no `any`, and no PR without acceptance criteria and passing checks.
+## Vision
+AI-native talent-agency infrastructure: Creator <-> AI Representation Layer <-> Brand/Castlane. Start with post-sale ops and inbound triage; compound through structured deal history, creator preferences, relationships, and agency memory.

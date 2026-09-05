@@ -1,23 +1,23 @@
-# Devin Master Prompt: Creator Signal OS
+# Devin Master Prompt — RosterOps
 
-You are the principal engineer building Creator Signal OS, an inbound deal triage OS for talent managers and creator coordinators. Read README.md and every docs file before coding. This is not a taste graph product.
+Build RosterOps, an AI talent-management operating system and digital talent agency workforce for creator managers and agencies. Read README.md and all docs before coding. The wedge is Send one messy deal: thread/PDF in, campaign workspace, kickoff, drafts, deadlines, approvals, invoice timeline, and reporting checklist out.
 
-## Mission
-Build the loop: Resend/Postmark webhook -> canonical email thread -> structured brand brief -> creator/rate-card match -> redline risk analysis -> minimal triage dashboard -> editable one-click counter-offer. Preserve evidence, confidence, provenance, model/prompt/schema versions, and human approval.
+## Serialization and quality
+One branch and PR at a time, following docs/PR_BUILD_PLAN.md. Read files fully before edits. Strict TypeScript with zero any/unsafe casts; Zod at every external, database, webhook, tool, and LLM boundary; Supabase RLS on every tenant row; secrets server-only; redacted logs; idempotent jobs; Vitest, integration, RLS, and Playwright tests before every PR. AI is advisory: no sending, contract acceptance, invoice submission, calendar booking, or CRM write without an explicit approval boundary.
 
-## Rules
-1. One serialized branch and PR at a time, named feat/pr-N-name. Follow docs/PR_BUILD_PLAN.md exactly; never expand scope silently.
-2. Read existing files in full before editing. Inspect scripts, migrations, tests, environment, and open PRs.
-3. Strict TypeScript: zero any, unsafe casts, suppressed errors, or unchecked JSON.parse. Zod at every HTTP, webhook, database, environment, LLM, and persisted JSON boundary.
-4. All org-owned rows carry organization_id and are protected with Supabase RLS. Test two organizations and unauthorized users.
-5. Verify Resend/Postmark signatures, reject replay/oversize payloads, enforce idempotency, minimize raw email retention, redact logs, and keep provider keys server-only.
-6. LLM output is advisory. Unknown terms remain unknown. Every extracted field has evidence or is null. Never send email or mutate canonical terms without explicit human approval.
-7. Keep dependencies small. Use Next.js 15 App Router, TypeScript, Tailwind, Supabase Postgres/Auth/RLS, Vercel AI SDK with Anthropic/OpenAI, Vitest, and Playwright.
-8. Use Neo-Swiss UI: compact density, white/neutral surfaces, strong hierarchy, 1px borders, restrained semantic color, keyboard accessibility, and useful loading/empty/error states.
-9. Before PR: format, lint, strict typecheck, unit/integration tests, RLS tests, webhook tests, relevant Playwright tests, and production build. Fix failures and report commands/results.
+## Agent architecture
+Use a typed orchestrator with durable jobs, scoped tools, budgets, trace IDs, memory retrieval, and human checkpoints. Agents must emit structured proposals and citations, not arbitrary side effects.
 
-## Domain behavior
-Normalize full threads while identifying latest authoritative terms. Extract brand, creator, campaign, deliverables, platforms, dates, fee/currency, usage, paid amplification/whitelisting, exclusivity/category, payment, cancellation, approval requirements, and missing/ambiguous fields. Match applicable creator rate cards by deliverable, usage, duration, and currency. Explain every variance. Detect redlines with severity and source evidence. Counter-offers are editable drafts only.
+Inbox/Comms Agent: read Gmail/Outlook threads, summarize, extract action items, draft in manager voice. Tools: search_threads, read_thread, extract_actions, draft_reply, create_approval.
+Deal Agent: parse opportunities, rates, usage, exclusivity, redlines, negotiation history. Tools: extract_brief, compare_rate_card, detect_redlines, append_deal_event.
+Campaign Agent: create campaign, deliverables, deadlines, approvals, posting/reporting checklists. Tools: create_campaign, create_deliverable, schedule_deadline, track_approval.
+Sales Agent: brand intelligence, org charts, decision-makers, warmth/intent, outreach drafts. Tools: enrich_brand, find_contact, score_relationship, draft_pitch.
+Creator Agent: goals, audience, content pillars, stats, category/whitelisting preferences. Tools: retrieve_creator_profile, propose_fit, update_preference_after_approval.
+Finance Agent: invoices, Net 30/60, commission splits, payment tracking, revenue forecast. Tools: create_invoice_plan, reconcile_payment, forecast_revenue.
+Career/Strategy Agent: trends, brand fit, growth opportunities. Tools: analyze_fit, generate_strategy_brief.
+Logistics Agent: calendar, shoots, travel, itineraries, conflicts. Tools: find_availability, propose_schedule, build_itinerary.
 
-## Done means
-Acceptance criteria pass; migrations work from empty DB; RLS and webhook replay tests pass; extraction gold threshold passes; rate matching is deterministic; risk explanations cite rules and spans; no sensitive leakage; accessible UI and all CI checks are green.
+Each tool checks authorization, tenant, idempotency, input schema, and approval requirements. Memory is separated into source facts, derived facts, preferences, and agent traces; provenance and expiry are mandatory. Prefer deterministic rules for money, deadlines, permissions, and conflicts; use LLMs for interpretation and drafting.
+
+## Definition of done
+Wedge works end-to-end; Manager Workspace is usable for 5–20 creators; Command Center aggregates safely; brand/contact intelligence is provenance-backed; agent traces are inspectable; every consequential action has approval; RLS, deletion, rate limits, retry/replay, accessibility, and CI gates pass.
