@@ -1,27 +1,30 @@
 # Creator Signal OS — App Concept
 
+## Vision
+A personal intelligence layer that turns creator posts, saved links, audience comments, and recommendation history into a living taste graph and weekly content/product recommendations.
+
 ## Problem
-Boutique talent managers and creator coordinators receive fragmented brand opportunities through email. Important terms are buried in prose, rate cards live in spreadsheets, conflicts are remembered informally, and drafting a response requires repetitive comparison and negotiation. Missed deadlines, underpriced work, category conflicts, and inconsistent redlines create revenue and relationship risk.
+Creators, curators, and cultural tastemakers discover more than they can remember. Signals are scattered across Instagram exports, feeds, RSS, bookmarks, screenshots, comments, and conversations. Existing tools store links but do not understand evolving taste, relationships between ideas, or why a recommendation should matter now.
 
-## Solution
-Creator Signal OS is a focused operating layer over inbound deal flow. It extracts deal facts with provenance, highlights uncertainty, compares terms to creator-specific rate cards and rules, flags conflicts and risk, and gives the manager an editable counter-draft. Humans retain final authority.
+## Wedge
+Start with one ingestion source and a high-trust recommendation digest. The user gets immediate value without a complex social graph or broad platform integrations.
 
-## Persona
-Primary users are boutique talent managers, creator managers, and creator coordinators handling multiple creators and brand relationships. They are commercially sophisticated, time-constrained, email-centric, and need fast trustable recommendations rather than an opaque autonomous agent.
+## Moat
+Longitudinal, user-owned taste history; semantic embeddings; a graph connecting creators, works, products, concepts, styles, and contexts; and explicit save/dismiss/rate feedback that iteratively calibrates recommendations.
+
+## Users
+Primary users are independent creators, curators, editors, tastemakers, and culture-focused professionals. They are signal-rich, time-poor, visually literate, and want a system that sharpens judgment rather than replaces it.
 
 ## Core flows
-1. Configure organization, members, creators, rate cards, category restrictions, and redline rules.
-2. Forward or receive an inbound brand email through a signed inbound webhook.
-3. System normalizes the message, deduplicates it, extracts structured terms, and shows source snippets and confidence.
-4. System matches creators and rate cards, computes pricing deltas, detects conflicts, and explains risks.
-5. Manager triages the deal, edits terms, generates a counter-draft, and copies or sends it only after explicit approval.
-6. Accepted edits and outcomes become auditable feedback for future rules and evaluation.
+1. Create a private profile and choose a source: Instagram export, RSS, or saved links.
+2. Import or sync source records with provenance, timestamps, authors, captions, comments, and URLs.
+3. Review extracted concepts and clusters; merge, rename, pin, or dismiss taste nodes.
+4. Explore a living graph showing themes, creators, products, references, and evolving edges.
+5. Receive a daily/weekly briefing of content and products with reasons, source evidence, novelty, and confidence.
+6. Save, dismiss, rate, or annotate recommendations; feedback updates future scoring.
 
 ## UX philosophy
-Neo-Swiss / clean utilitarian: 1px borders, crisp typography, visible hierarchy, compact information density, strong whitespace, monochrome foundation with restrained semantic accents, Lucide icons, keyboard-first interactions, responsive layouts, and clear tables. Avoid gradients, ornamental cards, heavy shadows, modal overload, and large component libraries. Every screen has loading, empty, error, and permission states.
+Neo-Swiss and clean utilitarian: 1px borders, crisp type, dense but calm layouts, black/white/neutral foundation, restrained semantic color, Lucide icons, visible provenance, keyboard support, responsive graph and list views, and no ornamental gradients or heavy component libraries. Trust is designed through explanations, timestamps, confidence, and controls.
 
 ## Value proposition
-Managers convert noisy inboxes into a prioritized, explainable deal queue; protect creator economics and exclusivity; reduce time to reply; standardize negotiation quality; and preserve human judgment with auditable AI assistance.
-
-## MVP boundaries
-In scope: one organization workspace, creator/rate-card configuration, inbound email ingestion, structured extraction, matching, conflict/redline alerts, triage dashboard, realtime updates, draft generation, auditability. Out of scope: autonomous sending, payment processing, CRM replacement, generalized contract management, training custom models, and multi-provider complexity beyond a clean adapter.
+Turn scattered inspiration into an accumulated point of view. Spend less time searching, rediscover more of what matters, find adjacent ideas earlier, and receive recommendations that become more personal with use.

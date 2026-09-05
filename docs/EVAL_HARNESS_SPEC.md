@@ -1,25 +1,25 @@
-# LLM Extraction Evaluation Harness
+# Taste Clustering and Recommendation Evaluation Harness
 
-## Purpose
-Prevent regressions in extracting commercial deal facts from inbound email. The harness must run offline against versioned fixtures and optionally against a provider in a separately marked integration suite.
+## Goal
+Measure whether Creator Signal OS extracts stable taste signals, forms useful clusters, updates from feedback, and recommends novel relevant content/products with defensible evidence.
 
 ## Fixture format
-Each case contains id, raw_email, expected fields, acceptable alternatives, evidence requirements, adversarial notes, and tags. Required fields: brand, creator if explicit, deliverables, fee, currency, usage, exclusivity, dates, payment terms, cancellation terms, confidence, unknown fields, and evidence spans.
+Each fixture includes source records, timestamps, author/context, expected entities/concepts/styles, expected cluster memberships, acceptable alternatives, provenance spans, user profile state, candidate set, gold ranking, rationale, and feedback events. Fixtures must be synthetic or redacted; never commit private raw exports.
 
 ## Gold cases
-1. Clear paid Instagram Reel: exact fee, USD, one deliverable, 30-day organic usage.
-2. Ambiguous fee: email says budget is flexible; fee must be null and ambiguity flagged.
-3. Whitelisting: paid amplification and duration must be captured separately from organic usage.
-4. Exclusivity: beauty category and date window must produce structured restriction.
-5. Missing deadline: deadline remains null, never inferred from received date.
-6. Currency: GBP must remain GBP; no conversion without an explicit rate.
-7. Multi-deliverable offer: each deliverable retains quantity and platform.
-8. Adversarial prompt injection: email content cannot override system extraction contract.
-9. Threaded email: newest relevant offer is selected with source evidence.
-10. Contradiction: conflicting fee statements produce an uncertainty flag and both evidence spans.
+1. Repeated signals across three posts converge on one concept with stable embedding neighborhood.
+2. A polysemous word is disambiguated using surrounding context.
+3. Two adjacent but distinct styles remain separate until evidence supports merging.
+4. A user dismisses a recommendation and its near-duplicates lose score.
+5. A save increases related-node weight without overpowering all other signals.
+6. A new concept receives a novelty bonus but is not recommended without relevance evidence.
+7. Temporal drift makes recent feedback more influential than stale feedback.
+8. Diversity prevents five recommendations from the same creator/category.
+9. Deleted source data removes derived embeddings/evidence from user views.
+10. Prompt injection inside a source record cannot alter extraction schema or scoring policy.
 
 ## Metrics and gates
-Compute exact/normalized field accuracy, precision/recall for flags, evidence validity, unknown calibration, schema validity, and tenant/security assertions. Required fields target >=95% exact/normalized accuracy; zero schema-invalid accepted outputs; zero invented values in missing-field cases. Fail CI on threshold regression or any critical-case failure.
+Track schema-valid output rate, concept precision/recall, cluster purity, normalized mutual information, duplicate/near-duplicate rate, recommendation precision@k, nDCG@k, novelty, diversity, evidence coverage, calibration, feedback sensitivity, and deletion/privacy assertions. MVP gates: >=95% valid structured outputs, >=0.85 human usefulness, >=90% evidence coverage, no critical gold-case failure, and zero cross-user reads.
 
 ## Test layers
-Pure evaluator tests; Zod contract tests; mocked provider integration tests; golden snapshot tests with reviewed snapshots; property tests for malformed/truncated input; prompt-injection tests; latency/retry tests. Store model name, prompt version, schema version, fixture version, and timestamp for every run. Do not commit provider secrets or unredacted personal email.
+Pure deterministic graph/scoring tests; Zod contract tests; mocked provider/embedding tests; golden extraction and clustering snapshots; property tests for malformed records; ranking invariants; RLS tests; deletion cascade tests; prompt-injection tests; and Playwright tests for import, graph inspection, digest feedback, and error states. Persist model, prompt, schema, embedding model, fixture, and scoring versions for reproducibility. Provider calls are separately marked integration tests and never required for offline CI.

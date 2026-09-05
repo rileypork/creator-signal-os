@@ -1,15 +1,15 @@
-# MVP Roadmap
+# MVP Roadmap — Taste Graph & Recommendation OS
 
-Phase 0 — repository and design contract: establish strict Next.js app, environment validation, CI, Supabase project, design tokens, and docs.
+Phase 0: establish the product contract, Next.js foundation, strict TypeScript, environment validation, design tokens, CI, Supabase, privacy/deletion policy, and source adapter interface.
 
-Phase 1 — trusted data foundation: migrations, organization membership, creators, rate cards, contacts, rules, deals, terms, drafts, audit events, RLS, typed repository layer, and test database harness.
+Phase 1: build the trusted signal foundation: profiles, sources, source items, ingestion runs, taste nodes, signal edges, embeddings, feedback, and RLS/pgvector migrations. Add deterministic fixtures and graph repository tests.
 
-Phase 2 — extraction intelligence: canonical email normalization, Zod extraction contracts, provider adapter, structured Claude/OpenAI calls, evidence and confidence, gold dataset, evaluator, fixtures, retries, and regression thresholds.
+Phase 2: ship one connector end-to-end: import Instagram export, RSS, or saved links; normalize records; deduplicate; preserve provenance; queue extraction and embedding jobs; expose retry/deletion status.
 
-Phase 3 — commercial intelligence: rate-card matching, normalized units, currency handling, category conflict engine, redline rules, severity/explanation model, and review tests.
+Phase 3: ship semantic intelligence: Zod extraction contracts, embeddings, clustering, node merge/split/correction, edge weighting, graph traversal, feedback updates, and explainable scoring.
 
-Phase 4 — operational intake: inbound provider signature validation, idempotency/replay defense, attachment policy, queue/background processing, notification preferences, and observability.
+Phase 4: ship recommendation intelligence: candidate generation, similarity/graph/novelty/diversity/recency scoring, daily/weekly briefing generation, evidence cards, and evaluation harness.
 
-Phase 5 — manager workspace: triage feed, realtime updates, detail panel, source evidence, filters, keyboard actions, editable counter-draft, copy/export, audit history, responsive polish, accessibility, and production readiness.
+Phase 5: ship the product surface: Neo-Swiss dashboard, graph explorer, signal detail, digest, feedback controls, realtime job status, accessibility, observability, and production hardening.
 
-Release gates: all PR acceptance criteria pass; no open critical security issue; RLS and webhook tests pass; gold evaluation meets threshold; build and E2E green; secrets and deployment runbook documented.
+Release gates: one source reliably ingests; deletion works; no RLS leak; outputs validate; every recommendation has evidence; gold clustering/recommendation thresholds pass; all tests/build pass; no autonomous external action.

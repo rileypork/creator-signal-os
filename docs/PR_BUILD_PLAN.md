@@ -1,19 +1,19 @@
-# Five-PR Build Plan
+# Five-PR Build Plan — Taste Graph & Recommendation OS
 
-## PR 1 — Foundation, types, schemas, migrations, DB harness
-Deliver strict app/tooling, env schema, domain types, Zod schemas, Supabase client/server boundary, complete migrations, seed fixtures, repository functions, and RLS tests. Acceptance: clean install/build; no any; migrations apply from empty DB; all tables/constraints/indexes exist; two-tenant isolation tests pass; schema tests reject malformed data; CI runs lint/typecheck/unit/integration.
+## PR 1 — Foundation, domain types, pgvector schema, RLS, harness
+Implement Next.js/tooling, strict env and domain schemas, Supabase clients, migrations for profiles/sources/source_items/ingestion_runs/taste_nodes/signal_edges/embeddings/feedback/briefings, pgvector indexes, tenant RLS, seed fixtures, and test harness. Acceptance: empty DB migration succeeds; pgvector enabled; all external/persisted shapes use Zod; two-user isolation tests pass; lint/typecheck/Vitest/build are green; no any.
 
-## PR 2 — LLM extraction, gold evaluation, regression suite
-Deliver normalized email model, provider abstraction, structured output prompt, Zod validation, evidence/confidence, safe retries, model metadata, fixtures and evaluator. Acceptance: valid fixture extraction persists; malformed output is rejected and retried/fails safely; unknowns stay null; gold dataset has representative offers, ambiguity, missing terms, currency, usage, exclusivity, and adversarial text; required-field accuracy threshold is enforced; no raw secrets/log leakage.
+## PR 2 — One-source ingestion and semantic extraction
+Implement one connector selected by the product owner, normalized source records, idempotency, provenance, retry state, structured OpenAI/Anthropic extraction through Vercel AI SDK, evidence spans, confidence, and embedding jobs. Acceptance: fixture import is repeatable without duplicates; malformed/provider failures are safe; deletion removes derived data; outputs validate; connector contract and failure tests pass; source terms are respected.
 
-## PR 3 — Matching, conflicts, redline analyzer
-Deliver normalized rate units, creator/rate-card matching, category taxonomy, conflict windows, configurable redline rules, severity and explanations. Acceptance: exact and fallback matches are deterministic; currency/unit edge cases tested; active exclusivity conflict is flagged; usage/term/payment risks cite rule and evidence; no rule silently mutates canonical terms; unit/integration coverage is comprehensive.
+## PR 3 — Taste graph and feedback loop
+Implement clustering, taste node lifecycle, embeddings persistence, signal edge creation/weighting, graph queries, user correction/merge/mute/pin, and save/dismiss/rate feedback. Acceptance: deterministic fixtures form expected clusters; edges are explainable and scoped; feedback changes weights; node edits preserve provenance; vector similarity is tested; RLS tests cover every graph table; no silent inference.
 
-## PR 4 — Inbound webhook, parser, notification layer
-Deliver Postmark/Resend/SendGrid adapter, signature verification, idempotency, replay protection, email normalization, attachment policy, async processing/status, and notifications. Acceptance: valid webhook creates one deal; duplicate event is harmless; invalid signature is 401; oversized/malicious payload is rejected; provider failures retry safely; notification never leaks cross-tenant data; integration tests cover all branches.
+## PR 4 — Recommendation and briefing engine
+Implement candidate retrieval, graph-based scoring using similarity, proximity, recency, novelty, diversity, and feedback; evidence-backed daily/weekly briefings; model adapter; persisted scoring snapshots. Acceptance: ranking is deterministic for fixed inputs; diversity prevents near duplicates; every result cites source items/nodes and confidence; briefing schema validates; evaluator thresholds and prompt-injection tests pass; generation failure does not corrupt graph data.
 
-## PR 5 — Triage dashboard, realtime feed, counter-drafts, polish
-Deliver responsive dashboard, filters, states, detail/evidence view, realtime updates, editable counter-draft, copy/export, audit timeline, accessibility and visual system. Acceptance: manager can triage fixture end-to-end; realtime insert/update appears; draft reflects selected risks and is editable; no automatic send; keyboard and screen-reader checks pass; Playwright covers happy/error/empty/loading flows; production build green.
+## PR 5 — Living graph UI, digest, realtime, polish
+Implement Neo-Swiss dashboard, graph/list/timeline views, node and source detail, digest cards, explanations, feedback actions, realtime ingestion/job updates, accessibility, responsive states, and observability. Acceptance: Playwright covers import -> graph -> digest -> feedback; loading/empty/error/deletion states work; keyboard/screen-reader checks pass; no external action is automatic; production build and all tests pass.
 
-## Serialization rule
-Never open the next PR until the current PR is merged or explicitly closed. Each PR must include scope, migration notes, test evidence, screenshots where UI changes, and rollback notes.
+## Serialization
+One branch and one PR at a time. Each PR includes scope, migrations, rollback notes, tests, screenshots for UI, security review, and exact commands/results. Do not begin the next PR until the current PR is merged or explicitly closed.
