@@ -1,27 +1,15 @@
-# Creator Signal OS
+# Creator Signal OS / Inbound Deal Triage
 
-Creator Signal OS is a personal intelligence layer that turns creator posts, saved links, audience comments, and recommendation history into a living taste graph and weekly content/product recommendations.
+Creator Signal OS is an autonomous deal-flow and inbound email triage OS for talent managers and creator coordinators. It turns messy brand threads into structured briefs, matches terms against creator rate cards, surfaces whitelisting/exclusivity and redline risk, and produces a manager-controlled counter-offer.
 
-## Wedge
-Creators, curators, and cultural tastemakers are overwhelmed by scattered signals across platforms. The product captures those signals in one private, explainable system.
+## Core loop
+Resend/Postmark inbound webhook -> normalize thread -> extract brief with evidence and confidence -> match creator/rate card -> detect risk and mismatches -> triage dashboard -> one-click editable counter-offer. AI recommends; a human approves any outbound action.
 
-## Moat
-Longitudinal taste data, semantic embeddings, a graph of concepts and relationships, and iterative human feedback loops compound over time.
+## Stack and architecture
+Next.js 15 App Router, strict TypeScript, Tailwind CSS, and a minimal Neo-Swiss interface with crisp typography and 1px borders. Supabase PostgreSQL/Auth/Storage/RLS. Anthropic or OpenAI through the Vercel AI SDK for structured extraction and drafting. Zod validates every external boundary. Resend/Postmark adapters are signature-verified, idempotent, and retryable. Vitest and Playwright provide coverage.
 
-## MVP
-Ingest one source (Instagram export, RSS, or saved links), extract and cluster taste signals, render a living taste graph, and deliver a daily/weekly recommendation digest.
+## Product documents
+Read .devin/instructions.md first. See docs/APP_CONCEPT.md, docs/PRD.md, docs/MVP_ROADMAP.md, docs/PR_BUILD_PLAN.md, docs/DATABASE_SCHEMA.sql, and docs/EVAL_HARNESS_SPEC.md.
 
-## Architecture
-Next.js 15 App Router, React 19, strict TypeScript, Tailwind CSS with Neo-Swiss 1px borders, Supabase PostgreSQL/Auth/RLS/Storage with pgvector, OpenAI or Anthropic through Vercel AI SDK for structured semantic extraction, source connectors, graph-based scoring, and agent-written briefings. Every boundary uses Zod; zero `any`; tests use Vitest and Playwright.
-
-## Documents
-- [.devin/instructions.md](.devin/instructions.md) — autonomous Devin master prompt
-- [docs/APP_CONCEPT.md](docs/APP_CONCEPT.md) — concept and user experience
-- [docs/PRD.md](docs/PRD.md) — product requirements
-- [docs/MVP_ROADMAP.md](docs/MVP_ROADMAP.md) — roadmap
-- [docs/PR_BUILD_PLAN.md](docs/PR_BUILD_PLAN.md) — five serialized PRs
-- [docs/DATABASE_SCHEMA.sql](docs/DATABASE_SCHEMA.sql) — pgvector schema and RLS
-- [docs/EVAL_HARNESS_SPEC.md](docs/EVAL_HARNESS_SPEC.md) — clustering/recommendation evaluation
-
-## Quality contract
-One branch/PR at a time; strict typecheck; no `any`; Zod everywhere; deterministic unit/integration tests before PR; RLS and privacy by default; no autonomous publishing or external actions without user approval.
+## Non-negotiables
+No autonomous sending, no invented terms, no unvalidated JSON, no secrets in logs, no cross-organization reads, no `any`, and no PR without acceptance criteria and passing checks.

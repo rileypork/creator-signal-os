@@ -1,15 +1,13 @@
-# MVP Roadmap — Taste Graph & Recommendation OS
+# MVP Roadmap
 
-Phase 0: establish the product contract, Next.js foundation, strict TypeScript, environment validation, design tokens, CI, Supabase, privacy/deletion policy, and source adapter interface.
+## Phase 0 — Concierge validation
+Manually process a representative inbox sample with a human-in-the-loop extraction template. Define canonical brief fields, rate-card vocabulary, redline taxonomy, privacy/retention policy, gold examples, and interview 3–5 managers. Exit when fields and workflow are stable.
 
-Phase 1: build the trusted signal foundation: profiles, sources, source items, ingestion runs, taste nodes, signal edges, embeddings, feedback, and RLS/pgvector migrations. Add deterministic fixtures and graph repository tests.
+## Phase 1 — Ingestion and extraction
+Ship Supabase schema, organization/auth/RLS, creator and rate-card configuration, Resend/Postmark adapters, signed webhook verification, thread normalization, idempotency, queue state, structured Anthropic/OpenAI extraction, evidence/confidence, and evaluation harness. Exit when one real source processes reliably with safe retries.
 
-Phase 2: ship one connector end-to-end: import Instagram export, RSS, or saved links; normalize records; deduplicate; preserve provenance; queue extraction and embedding jobs; expose retry/deletion status.
+## Phase 2 — Dashboard and triage
+Ship minimal 1px Swiss triage queue, detail view, source evidence, missing-term prompts, creator/rate comparison, redline risk cards, filters/statuses, audit events, and editable one-click counter-offer. Exit when managers can triage end-to-end in under five minutes.
 
-Phase 3: ship semantic intelligence: Zod extraction contracts, embeddings, clustering, node merge/split/correction, edge weighting, graph traversal, feedback updates, and explainable scoring.
-
-Phase 4: ship recommendation intelligence: candidate generation, similarity/graph/novelty/diversity/recency scoring, daily/weekly briefing generation, evidence cards, and evaluation harness.
-
-Phase 5: ship the product surface: Neo-Swiss dashboard, graph explorer, signal detail, digest, feedback controls, realtime job status, accessibility, observability, and production hardening.
-
-Release gates: one source reliably ingests; deletion works; no RLS leak; outputs validate; every recommendation has evidence; gold clustering/recommendation thresholds pass; all tests/build pass; no autonomous external action.
+## Phase 3 — Beta launch
+Pilot with a small set of talent teams. Add observability, feedback capture, correction workflow, performance tuning, export/copy controls, accessibility hardening, retention/deletion controls, onboarding, runbooks, and production deployment. Exit on gold thresholds, RLS/security review, stable webhook processing, and positive pilot feedback.

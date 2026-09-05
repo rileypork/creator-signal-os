@@ -1,25 +1,25 @@
-# Taste Clustering and Recommendation Evaluation Harness
+# Brief Extraction, Rate Matching, and Redline Evaluation Harness
 
-## Goal
-Measure whether Creator Signal OS extracts stable taste signals, forms useful clusters, updates from feedback, and recommends novel relevant content/products with defensible evidence.
+## Purpose
+Prevent regressions in the inbound deal parser, commercial matching, and risk analyzer. Run offline against versioned redacted fixtures; provider calls are separate integration tests.
 
 ## Fixture format
-Each fixture includes source records, timestamps, author/context, expected entities/concepts/styles, expected cluster memberships, acceptable alternatives, provenance spans, user profile state, candidate set, gold ranking, rationale, and feedback events. Fixtures must be synthetic or redacted; never commit private raw exports.
+Each case contains id, full thread, message ordering, expected latest terms, canonical brief, field-level evidence spans, confidence/unknown fields, creator/rate-card fixture, expected fee variance, expected risks/severity, acceptable alternatives, and adversarial tags.
 
-## Gold cases
-1. Repeated signals across three posts converge on one concept with stable embedding neighborhood.
-2. A polysemous word is disambiguated using surrounding context.
-3. Two adjacent but distinct styles remain separate until evidence supports merging.
-4. A user dismisses a recommendation and its near-duplicates lose score.
-5. A save increases related-node weight without overpowering all other signals.
-6. A new concept receives a novelty bonus but is not recommended without relevance evidence.
-7. Temporal drift makes recent feedback more influential than stale feedback.
-8. Diversity prevents five recommendations from the same creator/category.
-9. Deleted source data removes derived embeddings/evidence from user views.
-10. Prompt injection inside a source record cannot alter extraction schema or scoring policy.
+## Gold dataset cases
+1. Clear paid Reel with USD fee and one usage window: exact deliverable, price, currency, dates.
+2. Forwarded thread with changed fee: latest authoritative message wins and old evidence remains traceable.
+3. Ambiguous budget language: fee is null, not guessed, and missing information is surfaced.
+4. Multi-platform/multi-deliverable brief: quantities and platforms remain distinct.
+5. Whitelisting/paid amplification: separate from organic usage with duration and fee impact.
+6. Exclusivity: category and date window detected; overlap against creator rule flagged.
+7. Perpetual/global usage and broad license: high redline risk with evidence.
+8. Currency and unit mismatch: no silent conversion; normalized comparison explains limitation.
+9. Payment/cancellation/approval terms buried in a paragraph: extracted and risk-scored.
+10. Prompt injection, contradictory terms, malformed HTML, oversized attachment, and missing deadline: safe rejection/unknown behavior.
 
 ## Metrics and gates
-Track schema-valid output rate, concept precision/recall, cluster purity, normalized mutual information, duplicate/near-duplicate rate, recommendation precision@k, nDCG@k, novelty, diversity, evidence coverage, calibration, feedback sensitivity, and deletion/privacy assertions. MVP gates: >=95% valid structured outputs, >=0.85 human usefulness, >=90% evidence coverage, no critical gold-case failure, and zero cross-user reads.
+Brief extraction: exact/normalized field accuracy, precision/recall, evidence validity, schema validity, unknown calibration, and no-invention rate. Rate matching: creator selection accuracy, card applicability, fee variance accuracy, unit/currency correctness. Redlines: category precision/recall, severity agreement, evidence coverage. Release gates: >=95% required extraction accuracy, >=95% schema validity, >=90% redline detection, >=90% evidence coverage, zero invented missing terms, zero critical-case failures, and zero cross-org reads.
 
 ## Test layers
-Pure deterministic graph/scoring tests; Zod contract tests; mocked provider/embedding tests; golden extraction and clustering snapshots; property tests for malformed records; ranking invariants; RLS tests; deletion cascade tests; prompt-injection tests; and Playwright tests for import, graph inspection, digest feedback, and error states. Persist model, prompt, schema, embedding model, fixture, and scoring versions for reproducibility. Provider calls are separately marked integration tests and never required for offline CI.
+Zod contract tests; deterministic parser fixtures; mocked Anthropic/OpenAI structured-output tests; golden snapshots; property tests for malformed/truncated threads; signature/replay/idempotency tests; rate-card edge cases; RLS tests; prompt-injection tests; and Playwright queue-to-counter-offer flow. Record model, prompt, schema, fixture, and evaluator versions; never commit secrets or unredacted personal email.
